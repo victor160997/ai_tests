@@ -1,35 +1,26 @@
 import OpenAIApi from "openai";
+import { config } from "dotenv";
+import { ChatCompletionCreateParamsNonStreaming } from "openai/resources/index.mjs";
+import { IOpenAiCommunication } from "./IOpenAiCommunication";
 
-export class OpenAI {
-  constructor() {}
+export class OpenAICommunication implements IOpenAiCommunication {
+  constructor() {
+    config();
+  }
 
-  async getResponse() {
+  async getResponse(
+    interation: ChatCompletionCreateParamsNonStreaming
+  ): Promise<string | undefined> {
     try {
-      const openAIKey = "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";
-      const imageURL =
-        "https://i0.wp.com/www.odontoi.com.br/wp-content/uploads/2019/04/RADIOGRAFIA-PANORAMICA-0.jpeg?fit=2440%2C1292&ssl=1";
+      const openAIKey = process.env.OPENAI_API_KEY;
 
       const openai = new OpenAIApi({
         apiKey: openAIKey,
       });
-      const completion = await openai.chat.completions.create({
-        messages: [
-          {
-            role: "user",
-            content: [
-              {
-                type: "text",
-                text: `
-                  Liste algumas sugestões de melhoria na UX/UI desse site """https://querobolsa.com.br/carreiras-e-profissoes/eletricista#:~:text=O%20eletricista%20%C3%A9%20o%20profissional,redes%20de%20distribui%C3%A7%C3%A3o%20de%20energia."""
-                `,
-              },
-            ],
-          },
-        ],
-        model: "gpt-4-0125-preview",
-      });
-      const res = completion.choices[0];
-      return res;
+
+      const completion = await openai.chat.completions.create(interation);
+      const res = completion.choices[0].message.content;
+      return res || "Não foi possível obter uma resposta";
     } catch (error) {
       console.error(error);
     }
