@@ -1,7 +1,7 @@
 import OpenAI from "openai";
 import { IInterationService } from "./interfaces/IInterationService";
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
-import { OpenAICommunication } from "../api/openai";
+import { OpenAICommunication } from "../api/openai/simpleCompletion";
 
 class InterationService implements IInterationService {
   private aiContext: OpenAICommunication;
