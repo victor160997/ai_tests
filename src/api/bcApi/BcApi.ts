@@ -18,12 +18,13 @@ export class BcApi implements IBcApi {
     return res.data as BcCotationsDTO;
   }
 
-  getCotationByPeriod(
+  async getCotationByPeriod(
     startDate: string,
     endDate: string
   ): Promise<BcCotationsDTO> {
     const url = `${this.baseUrl}CotacaoDolarPeriodo(dataInicial=@dataInicial,dataFinalCotacao=@dataFinalCotacao)?@dataInicial='${startDate}'&@dataFinalCotacao='${endDate}'&$top=100&$format=json`;
 
-    return axios.get(url) as Promise<BcCotationsDTO>;
+    const res = await axios.get(url);
+    return res.data as BcCotationsDTO;
   }
 }
