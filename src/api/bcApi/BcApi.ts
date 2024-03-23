@@ -3,9 +3,13 @@ import { BcCotationsDTO } from "../../types/bc/BcCotationsDTO";
 import { IBcApi } from "./IBcApi";
 
 export class BcApi implements IBcApi {
-  private readonly baseUrl =
-    "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/";
-  constructor() {}
+  private readonly baseUrl: string;
+  constructor() {
+    console.log("BcApi constructor");
+    this.baseUrl =
+      "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/";
+    this.getCotationByDate = this.getCotationByDate.bind(this);
+  }
 
   async getCotationByDate(date: string): Promise<BcCotationsDTO> {
     const url = `${this.baseUrl}CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='${date}'&$top=100&$format=json`;

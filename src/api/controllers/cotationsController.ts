@@ -1,19 +1,19 @@
 import { Request, Response } from "express";
-import { BcCotationsDTO } from "../../types/bc/BcCotationsDTO";
-import { BcCotationByDateFilterDTO } from "../../types/bc/BcCotationByDateFilterDTO";
-import { BcApi } from "../bcApi/BcApi";
+import { IInterationService } from "../../services/interfaces/IInterationService";
+import CotationService from "../../services/cotationService";
+import { InterationDTO } from "../../types/interation/InterationDTO";
 
 export class CotationController {
-  private readonly BcApi: BcApi;
+  private readonly cotationService: IInterationService;
   constructor() {
-    this.BcApi = new BcApi();
+    this.cotationService = new CotationService();
   }
   public async getCotationByDate(
-    req: Request<BcCotationByDateFilterDTO>,
-    res: Response<BcCotationsDTO>
+    req: Request<InterationDTO>,
+    res: Response<string>
   ) {
-    const { date } = req.body;
-    const response = await this.BcApi.getCotationByDate(date);
+    const { msg } = req.body;
+    const response = await this.cotationService.interation(msg);
     res.status(200).send(response);
   }
 }

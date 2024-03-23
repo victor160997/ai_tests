@@ -1,6 +1,9 @@
 import OpenAIApi from "openai";
 import { config } from "dotenv";
-import { ChatCompletionCreateParamsNonStreaming } from "openai/resources/index.mjs";
+import {
+  ChatCompletionCreateParamsNonStreaming,
+  ChatCompletionMessage,
+} from "openai/resources/index.mjs";
 import { IOpenAiCommunication } from "./IOpenAiCommunication";
 
 export class OpenAICommunication implements IOpenAiCommunication {
@@ -10,7 +13,7 @@ export class OpenAICommunication implements IOpenAiCommunication {
 
   async getResponse(
     interation: ChatCompletionCreateParamsNonStreaming
-  ): Promise<string | undefined> {
+  ): Promise<ChatCompletionMessage | undefined> {
     try {
       const openAIKey = process.env.OPENAI_API_KEY;
 
@@ -19,8 +22,8 @@ export class OpenAICommunication implements IOpenAiCommunication {
       });
 
       const completion = await openai.chat.completions.create(interation);
-      const res = completion.choices[0].message.content;
-      return res || "Não foi possível obter uma resposta";
+      const res = completion.choices[0].message;
+      return res;
     } catch (error) {
       console.error(error);
     }

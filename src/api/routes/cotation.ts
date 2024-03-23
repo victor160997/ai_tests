@@ -12,7 +12,7 @@ class CotationRouter {
   }
 
   initializeRoutes() {
-    this.router.get(
+    this.router.post(
       "/",
       this.cotationController.getCotationByDate.bind(this.cotationController)
     );

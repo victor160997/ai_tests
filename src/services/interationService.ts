@@ -18,7 +18,7 @@ class InterationService implements IInterationService {
 
   async interation(msg: string): Promise<string> {
     const res = await this.addInteration(msg);
-    return res || "Não foi possível obter uma resposta";
+    return res?.content || "Não foi possível obter uma resposta";
   }
 
   private async addInteration(msg: string) {
@@ -39,7 +39,7 @@ class InterationService implements IInterationService {
 
     this.msgList.push({
       role: "assistant",
-      content: res,
+      content: res?.content,
     });
 
     return res;
