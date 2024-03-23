@@ -11,4 +11,4 @@
         "msg": "Quais diferença de valor entre as cotações do dólar para real em 12 e 22 de março de 2024?"
       }
     ```
-    sendo msg a menssagem enviada para o modelo.
+    sendo msg a mensagem enviada para o modelo.
