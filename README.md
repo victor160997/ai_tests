@@ -4,7 +4,7 @@
 * rodar npm install
 * rodar npm start para iniciar a API
 
-## CONVERSA LIVRE:
+## Conversa com IA:
 * Endpoint ```/interation``` ou ```/cotation```, basta enviar a mensagem e bater no endpoint usando o método post passando o seguinte body:
 *   ```json
      {
